@@ -2,7 +2,7 @@
 import { gql } from '@apollo/client/core';
 import { client } from '~/api/client'
 
-const allLifts = `
+const users = `
 	{
     users {
       name
@@ -11,7 +11,7 @@ const allLifts = `
 `
 
 const fetchData = async () => { 
-  const data =	await client.query({ query: gql(allLifts) }); console.log(data)
+  const data =	await client.query({ query: gql(users) }); console.log(data)
 }
 </script>
 

@@ -1,0 +1,10 @@
+overwrite: true
+schema: 'api/schema.graphql'
+generates:
+  ./types/graphql/schema.d.ts:
+    plugins:
+      - typescript
+    config:
+      declarationKind: interface
+      enumsAsTypes: true
+      nonOptionalTypename: true
