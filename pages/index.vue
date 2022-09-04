@@ -9,9 +9,9 @@ const allLifts = `
     }
   }
 `
-const fetchData = async () => {
-	const data =	await client.query({ query: gql(allLifts) });
-	console.log(data)
+
+const fetchData = async () => { 
+  const data =	await client.query({ query: gql(allLifts) }); console.log(data)
 }
 </script>
 
@@ -20,4 +20,4 @@ const fetchData = async () => {
     <span>test</span>
     <button @click="fetchData">データ取得</button>
   </div>
-</template>
+</template>∏
