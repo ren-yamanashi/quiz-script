@@ -1,38 +1,80 @@
-export const users = `
-	{
-    users {
-        id
-        name
-        email
-        password
-        role
-        quizResults{
-            id
-            isCorrect
-        }
-    }
-}
-`;
+import { gql } from '@apollo/client/core';
+import { client } from '~/api/client';
+import { Query, Quiz } from '~/types/graphql/schema';
 
-export const quizzes = `
-{
-    quizzes {
-        id
-        question
-        startCode
-        answerCode
-        answers
-        answerComment
-        isPublic
-        categoryId
-        category {
+export const quizRepository = {
+  getQuizzes: async (isPublic?: boolean) => {
+    const { data } = await client.query<Query>({
+      variables: { isPublic },
+      query: gql`
+        query getQuizzes($isPublic: Boolean) {
+          quizzes(isPublic: $isPublic) {
             id
-            name
+            question
+            startCode
+            answerCode
+            answers
+            hint
+            answerComment
+            isPublic
+            createdAt
+            categoryId
+            quizResults {
+              id
+              isCorrect
+              quizId
+              user {
+                id
+                name
+                email
+                role
+              }
+            }
+            category {
+              id
+              name
+            }
+          }
         }
-        quizResults {
+      `,
+    });
+    return JSON.parse(JSON.stringify(data.quizzes)) as Quiz[];
+  },
+  getQuiz: async (id: string) => {
+    const { data } = await client.query<Query>({
+      variables: { id },
+      query: gql`
+        query getQuizById($id: String!) {
+          quiz(id: $id) {
             id
-            isCorrect
-            quizId
+            question
+            startCode
+            answerCode
+            answers
+            hint
+            answerComment
+            isPublic
+            createdAt
+            categoryId
+            quizResults {
+              id
+              isCorrect
+              quizId
+              user {
+                id
+                name
+                email
+                role
+              }
+            }
+            category {
+              id
+              name
+            }
+          }
         }
-}
-}`;
+      `,
+    });
+    return JSON.parse(JSON.stringify(data.quiz)) as Quiz;
+  },
+};

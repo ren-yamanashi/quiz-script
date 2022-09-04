@@ -26,30 +26,21 @@
     "webpack": "^4.46.0"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.16.3",
-    "@graphql-codegen/cli": "^2.12.0",
+    "@babel/eslint-parser": "^7.18.9",
+    "@graphql-codegen/cli": "^2.11.6",
     "@graphql-codegen/typescript": "^2.7.3",
     "@nuxt/types": "^2.15.8",
     "@nuxt/typescript-build": "^2.1.0",
+    "@nuxtjs/eslint-config": "^10.0.0",
     "@nuxtjs/eslint-config-typescript": "^8.0.0",
-    "@nuxtjs/eslint-module": "^3.0.2",
+    "@nuxtjs/eslint-module": "^3.1.0",
     "@nuxtjs/vuetify": "^1.12.3",
-    "@types/babel-core": "^6.25.7",
-    "@types/eslint": "^8.4.6",
-    "@types/eslint-plugin-prettier": "^3.1.0",
-    "@types/prettier": "^2.7.0",
-    "@typescript-eslint/eslint-plugin": "^5.36.1",
-    "@typescript-eslint/parser": "^5.36.1",
-    "@vue/eslint-config-typescript": "^11.0.0",
-    "@vue/runtime-dom": "^3.2.38",
-    "add": "^2.0.6",
-    "eslint": "^8.23.0",
+    "@vue/runtime-dom": "^3.2.37",
+    "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-nuxt": "^3.1.0",
-    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^8.2.0",
     "prettier": "^2.7.1",
-    "stylelint": "^14.11.0",
-    "yarn": "^1.22.19"
+    "uuid": "^8.3.2"
   }
 }
