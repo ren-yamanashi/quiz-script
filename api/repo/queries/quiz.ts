@@ -10,6 +10,7 @@ export const quizRepository = {
         query getQuizzes($isPublic: Boolean) {
           quizzes(isPublic: $isPublic) {
             id
+            title
             question
             startCode
             answerCode
@@ -47,6 +48,7 @@ export const quizRepository = {
         query getQuizById($id: String!) {
           quiz(id: $id) {
             id
+            title
             question
             startCode
             answerCode
