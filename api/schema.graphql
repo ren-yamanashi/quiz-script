@@ -11,6 +11,7 @@ type Query {
 }
 
 type Mutation {
+  # signIn(email: String!, password: String!): AuthPayload
   ## add
   signup(input: SignupInput!): AuthPayload!
   signIn(email: String!, password: String!): AuthPayload!
@@ -30,6 +31,7 @@ type Mutation {
   deleteQuizResult(id: Int!): QuizResultPayload!
   deleteUser(id: String!): AuthPayload!
 }
+
 type User {
   id: String!
   name: String!
@@ -45,6 +47,7 @@ enum UserRole {
 }
 type Quiz {
   id: String!
+  title: String!
   question: String!
   startCode: String!
   answerCode: String!
@@ -93,7 +96,7 @@ type QuizResultPayload {
   quizResult: QuizResult!
 }
 
-# inputTypes
+## inputTypes
 ## add
 input SignupInput {
   name: String!
@@ -106,6 +109,7 @@ input SignInInput {
   password: String!
 }
 input AddQuizInput {
+  title: String!
   question: String!
   startCode: String!
   answerCode: String!
@@ -123,6 +127,7 @@ input AddQuizResultInput {
   quizId: String!
   userId: String!
 }
+
 ## update
 input UpdateUserInput {
   name: String
@@ -134,6 +139,7 @@ input UpdateQuizResultInput {
   userId: String
 }
 input UpdateQuizInput {
+  title: String
   question: String
   startCode: String
   answerCode: String

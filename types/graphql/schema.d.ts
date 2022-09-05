@@ -25,6 +25,7 @@ export interface AddQuizInput {
   isPublic: Scalars['Boolean'];
   question: Scalars['String'];
   startCode: Scalars['String'];
+  title: Scalars['String'];
 }
 
 export interface AddQuizResultInput {
@@ -182,6 +183,7 @@ export interface Quiz {
   question: Scalars['String'];
   quizResults?: Maybe<Array<Maybe<QuizResult>>>;
   startCode: Scalars['String'];
+  title: Scalars['String'];
 }
 
 export interface QuizCategory {
@@ -245,6 +247,7 @@ export interface UpdateQuizInput {
   isPublic?: InputMaybe<Scalars['Boolean']>;
   question?: InputMaybe<Scalars['String']>;
   startCode?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
 }
 
 export interface UpdateQuizResultInput {
