@@ -14,12 +14,18 @@ export const quizRepository = {
             question
             startCode
             answerCode
-            answers
-            hint
+            inputFormat
+            outputFormat
+            inputExample
+            outputExample
+            inputDescription
+            outputDescription
+            conditions
             answerComment
             isPublic
             createdAt
             categoryId
+            level
             quizResults {
               id
               isCorrect
@@ -52,12 +58,18 @@ export const quizRepository = {
             question
             startCode
             answerCode
-            answers
-            hint
+            inputFormat
+            outputFormat
+            inputExample
+            outputExample
+            inputDescription
+            outputDescription
+            conditions
             answerComment
             isPublic
             createdAt
             categoryId
+            level
             quizResults {
               id
               isCorrect

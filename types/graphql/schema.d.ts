@@ -19,10 +19,16 @@ export interface AddQuizCategoryInput {
 export interface AddQuizInput {
   answerCode: Scalars['String'];
   answerComment?: InputMaybe<Scalars['String']>;
-  answers?: InputMaybe<Array<Scalars['String']>>;
   categoryId: Scalars['Int'];
-  hint: Scalars['String'];
+  conditions?: InputMaybe<Scalars['String']>;
+  inputDescription?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  inputExample: Array<Scalars['String']>;
+  inputFormat: Scalars['String'];
   isPublic: Scalars['Boolean'];
+  level: Scalars['Int'];
+  outputDescription?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  outputExample: Array<Scalars['String']>;
+  outputFormat: Scalars['String'];
   question: Scalars['String'];
   startCode: Scalars['String'];
   title: Scalars['String'];
@@ -173,13 +179,19 @@ export interface Quiz {
   __typename: 'Quiz';
   answerCode: Scalars['String'];
   answerComment?: Maybe<Scalars['String']>;
-  answers: Array<Maybe<Scalars['String']>>;
   category?: Maybe<QuizCategory>;
   categoryId: Scalars['Int'];
+  conditions?: Maybe<Scalars['String']>;
   createdAt: Scalars['String'];
-  hint?: Maybe<Scalars['String']>;
   id: Scalars['String'];
+  inputDescription?: Maybe<Array<Maybe<Scalars['String']>>>;
+  inputExample: Array<Scalars['String']>;
+  inputFormat: Scalars['String'];
   isPublic: Scalars['Boolean'];
+  level: Scalars['Int'];
+  outputDescription?: Maybe<Array<Maybe<Scalars['String']>>>;
+  outputExample: Array<Scalars['String']>;
+  outputFormat: Scalars['String'];
   question: Scalars['String'];
   quizResults?: Maybe<Array<Maybe<QuizResult>>>;
   startCode: Scalars['String'];
@@ -240,11 +252,16 @@ export interface UpdateQuizCategoryInput {
 
 export interface UpdateQuizInput {
   answerCode?: InputMaybe<Scalars['String']>;
-  answerComment?: InputMaybe<Scalars['String']>;
-  answers?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   categoryId?: InputMaybe<Scalars['Int']>;
-  hint?: InputMaybe<Scalars['String']>;
+  conditions?: InputMaybe<Scalars['String']>;
+  inputDescription?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  inputExample?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  inputFormat?: InputMaybe<Scalars['String']>;
   isPublic?: InputMaybe<Scalars['Boolean']>;
+  level?: InputMaybe<Scalars['Int']>;
+  outputDescription?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  outputExample?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  outputFormat?: InputMaybe<Scalars['String']>;
   question?: InputMaybe<Scalars['String']>;
   startCode?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;

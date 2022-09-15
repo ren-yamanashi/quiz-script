@@ -23,7 +23,7 @@ const headers = [
   },
   
 ]
-const openQuizPage =(id:string) =>  router.push(`/${id}`)
+const openQuizPage = (id:string) =>  router.push(`/quiz/${id}/`)
 const getQuizzes = async () => {
   try {
     quizzes.value = await quizRepository.getQuizzes()
@@ -36,13 +36,13 @@ getQuizzes()
 </script>
     
     <template >
-    <div>
-        <DataTable :headers="headers" :items="quizzes" :disable-hover-effect="true">
-            <template #actions="{id}">
-                <v-btn color="primary" @click="openQuizPage(id)">
-                    問題を解く
-                </v-btn>
-            </template>
-        </DataTable>
-    </div>
-</template>
+        <div>
+            <DataTable :headers="headers" :items="quizzes" :disable-hover-effect="true">
+                <template #actions="{id}">
+                    <v-btn color="primary" @click="openQuizPage(id)">
+                        詳細
+                    </v-btn>
+                </template>
+            </DataTable>
+        </div>
+    </template>

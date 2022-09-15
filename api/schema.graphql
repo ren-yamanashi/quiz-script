@@ -51,14 +51,20 @@ type Quiz {
   question: String!
   startCode: String!
   answerCode: String!
-  answers: [String]!
-  hint: String
+  inputFormat: String!
+  outputFormat: String!
+  inputExample: [String!]!
+  outputExample: [String!]!
+  inputDescription: [String]
+  outputDescription: [String]
+  conditions: String
   answerComment: String
   isPublic: Boolean!
   createdAt: String!
   quizResults: [QuizResult]
   category: QuizCategory
   categoryId: Int!
+  level: Int!
 }
 type QuizCategory {
   id: Int!
@@ -113,11 +119,17 @@ input AddQuizInput {
   question: String!
   startCode: String!
   answerCode: String!
-  answers: [String!]
-  hint: String!
+  inputFormat: String!
+  outputFormat: String!
+  inputExample: [String!]!
+  outputExample: [String!]!
+  inputDescription: [String]
+  outputDescription: [String]
+  conditions: String
   answerComment: String
   isPublic: Boolean!
   categoryId: Int!
+  level: Int!
 }
 input AddQuizCategoryInput {
   name: String!
@@ -143,11 +155,16 @@ input UpdateQuizInput {
   question: String
   startCode: String
   answerCode: String
-  answers: [String]
-  hint: String
-  answerComment: String
+  inputFormat: String
+  outputFormat: String
+  inputExample: [String]
+  outputExample: [String]
+  inputDescription: [String]
+  outputDescription: [String]
+  conditions: String
   isPublic: Boolean
   categoryId: Int
+  level: Int
 }
 input UpdateQuizCategoryInput {
   name: String

@@ -4,8 +4,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - todo-sample',
-    title: 'todo-sample',
+    titleTemplate: '%s - quiz-script',
+    title: 'quiz-script',
     htmlAttrs: {
       lang: 'en',
     },

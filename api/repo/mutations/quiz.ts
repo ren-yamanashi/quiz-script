@@ -14,27 +14,18 @@ export const quizMutations = {
               question
               startCode
               answerCode
-              answers
-              hint
+              inputFormat
+              outputFormat
+              inputExample
+              outputExample
+              inputDescription
+              inputDescription
+              conditions
               answerComment
               isPublic
               createdAt
               categoryId
-              #   quizResults {
-              #     id
-              #     isCorrect
-              #     quizId
-              #     user {
-              #       id
-              #       name
-              #       email
-              #       role
-              #     }
-              #   }
-              #   category {
-              #     id
-              #     name
-              #   }
+              level
             }
           }
         }
