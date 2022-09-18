@@ -1,3 +1,4 @@
+import { MonacoEditorPlugin } from './plugins/monacoEditor';
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
@@ -61,5 +62,11 @@ export default {
     },
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    plugins: [
+      new MonacoEditorPlugin({
+        languages: ['javascript', 'typescript', 'html', 'cpp'],
+      }),
+    ],
+  },
 };
