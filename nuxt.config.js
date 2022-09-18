@@ -1,4 +1,5 @@
 import { MonacoEditorPlugin } from './plugins/monacoEditor';
+import { vm } from './plugins/vm';
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
