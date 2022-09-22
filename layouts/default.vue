@@ -3,7 +3,7 @@ import { useRouter } from '@nuxtjs/composition-api';
 
     
     const router = useRouter();
-    const goHome = () => router.push("/")
+    const goHome = () => router.push("/quiz")
 </script>
 <template>
     <v-app id="app">

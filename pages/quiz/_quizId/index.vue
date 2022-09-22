@@ -45,10 +45,11 @@ const monacoOptions = {
 }
 
 // states
-const currentRef = ref()
+const currentTab = ref()
 const quizId = computed(() => route.value.params.quizId)
 const quiz = reactive<Quiz>(createDefaultQuiz())
-const userResult = ref("")
+const userResult = ref("") // userのコーディング結果
+const userOutputs = ref<string[]>([]) // userの出力
 const sidebar = ref(true)
 
 const quizMode = ref<QuizMode>("SOLVE_ANSWER")
@@ -61,6 +62,32 @@ const getQuiz = async () => Object.assign(quiz, await quizRepository.getQuiz(qui
 const onChange = (value: string) => { userResult.value = value }
 getQuiz()
 
+
+const replaceInput = () => quiz.inputExample.map((item) => item.replaceAll(/x|y|=/g, ""))
+
+
+const getUserResult = () => {
+    replaceInput().forEach(async (input, index) => {
+        try {
+            userOutputs.value = [];
+            const result = await vm.runInThisContext(`${userResult.value}; solve(${input})`)
+            userOutputs.value.push(result);
+
+            // フラグの切り替えと、正誤判断
+            quizMode.value = "CONFIRM_ANSWER"
+            result === Number(quiz.outputExample[index]) ? isCorrected.value = true : isCorrected.value = false
+
+            if (userOutputs.value.some((item) => !item)) throw new Error("return is not defined")
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                userOutputs.value.push(err.toString())
+                throw new Error(err.toString())
+            }
+        }
+    })
+    quizMode.value = "CONFIRM_ANSWER"
+}
+
 // ユーザーの記入を出力
 // const context = vm.createContext({
 //     myConsole: {
@@ -69,19 +96,6 @@ getQuiz()
 //         }
 //     }
 // })
-
-
-const replaceInput = () => quiz.inputExample.map((item) => item.replaceAll(/x|y|=/g, ""))
-
-const getUserResult = () => {
-    replaceInput().forEach((input, index) => {
-        const vmResult = (input: string) => { return vm.runInThisContext(`${userResult.value}; solve(${input})`) }
-        vmResult(input) === Number(quiz.outputExample[index]) ? isCorrected.value = true : isCorrected.value = false
-    })
-    quizMode.value = "CONFIRM_ANSWER"
-    console.log(isCorrected.value)
-}
-
 // consoleを書き換える
 // セキュリティ問題でできなかった
 // const isPublic = ref(true)
@@ -113,8 +127,8 @@ const getUserResult = () => {
 </script>
 
 <template>
-    <div class='quiz-information d-flex'>
-        <v-navigation-drawer id="side-navigation" v-model="sidebar" width="400" permanent color="white"
+    <div class='d-flex pt-16'>
+        <v-navigation-drawer v-model="sidebar" width="400" chipped permanent color="white"
             class="side-navigation-content">
             <v-container class="quiz-navigation">
                 <v-container>
@@ -180,58 +194,62 @@ const getUserResult = () => {
         </v-navigation-drawer>
 
         <!-- タイトルと問題文 -->
-        <div class="solve-quiz-contents">
-            <!-- <v-btn class="pa-0 ma-0 secondary-button font-weight-bold"  @click="getUserResult">実行</v-btn> -->
-            <!-- <div class="mt-1 d-flex justify-space-between">
-                <div v-if="quizMode === 'CONFIRM_ANSWER' ">
-                    <span v-if="isCorrected" class="text-h6 font-weight-bold ">
-                        正解
-                    </span>
-                    <span v-else>
-                        不正解
-                    </span>
-                </div>
-            </div> -->
+        <div class="solve-quiz-contents p">
             <div id="user-editor" class="d-flex justify-center ">
                 <MonacoEditor width="calc(100vw - 400px)" height="500px" theme="vs-dark" language="typescript"
                     :value="quiz.startCode" :options="options" @change="onChange" />
             </div>
             <v-tabs v-model="currentTab" height="30px" background-color="black" dark>
                 <v-tabs-slider color="white"></v-tabs-slider>
-                <v-tab color="white">入力</v-tab>
-                <v-tab>出力</v-tab>
                 <v-tab>コンソール</v-tab>
             </v-tabs>
             <v-tabs-items v-model="currentTab">
-                <v-tab-item class="user-terminal full-height full-width">
-                    
-                        <v-btn class="d-flex ma-2 white--text ml-auto bg-primary font-weight-bold" @click="getUserResult">実行</v-btn>
-                    
-                    <!-- <span class="white--text py-1 px-2">入力</span> -->
-                
-                </v-tab-item>
-                <v-tab-item class="user-terminal full-height">
-                    <span class="white--text py-1 px-2">出力</span>
-                </v-tab-item>
-                <v-tab-item class="user-terminal full-height">
-                    <span class="white--text py-1 px-2">コンソール</span>
+                <v-tab-item class="user-terminal full-height pt-1">
+                    <v-btn class="d-flex ma-2 white--text ml-auto bg-primary font-weight-bold execution-button"
+                        @click="getUserResult">実行
+                    </v-btn>
+                    <div v-for="(log,index) in userOutputs" :key="index" class="white--text  mr-auto d-block">
+                        <span class="white--text ml-2 mr-auto">{{log}}</span>
+                    </div>
                 </v-tab-item>
             </v-tabs-items>
         </div>
     </div>
 </template>
 
-<style >
-.quiz-information {
+<style lang="scss">
+.side-navigation-content {
+    padding: 0;
+    margin: 0;
     background-color: #363636 !important;
-    margin-top: 62px;
-}
 
-.quiz-navigation {
-    background-color: #363636;
-    color: white;
-    overflow-y: scroll;
-    max-height: calc(100vh - 60px);
+    .quiz-navigation {
+        background-color: #363636;
+        color: white;
+        overflow-y: scroll;
+        max-height: calc(100vh - 60px);
+
+        .quiz-navigation {
+            background-color: #363636;
+            color: white;
+            overflow-y: scroll;
+            max-height: calc(100vh - 60px);
+        }
+
+        .question-text {
+            font-size: h6;
+            padding: 10px;
+        }
+
+        .codeblock-style {
+            font-size: 15px;
+            color: black;
+            background-color: #f5f5f5;
+            border: 2px solid #ccc;
+            border-radius: 0.5rem;
+        }
+    }
+
 }
 
 .solve-quiz-contents {
@@ -239,22 +257,15 @@ const getUserResult = () => {
     padding: 0px;
 }
 
-.question-text {
-    font-size: h6;
-    padding: 10px;
-}
-
-.codeblock-style {
-    font-size: 15px;
-    color: black;
-    background-color: #f5f5f5;
-    border: 2px solid #ccc;
-    border-radius: 0.5rem;
-}
-
 .user-terminal {
     border-top: 1px solid grey;
-    background-color: rgba(6, 6, 6, 0.87);
-    height: 300px;
+    background-color: rgba(0, 0, 0, 0.87);
+    height: 297px;
+
+    .execution-button {
+        z-index: 100;
+        position: absolute;
+        right: 0;
+    }
 }
 </style>
