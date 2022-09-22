@@ -1,5 +1,4 @@
 import { MonacoEditorPlugin } from './plugins/monacoEditor';
-import { vm } from './plugins/vm';
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
@@ -21,7 +20,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ['~/assets/common.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['~plugins/day.js'],
@@ -40,27 +39,31 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [],
-
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    // sass変数書き換えたりするので, devでもtreeShakeしたい.
     treeShake: true,
     theme: {
-      options: {
-        customProperties: true,
-      },
-      light: true,
+      dark: false,
       themes: {
         light: {
-          background: '#d0f0c0',
-          info: '#D0EDFE',
           primary: '#2cb8d1',
+          info: '#D0EDFE',
+          green: '#6FCF97',
+          black: '#0A0A0A',
+          background: '#363636',
           secondary: '#f08080',
-          accent: '#9370db',
+          blue: '#2962FF',
           error: '#ff1744',
-        },
+        }
       },
-    },
+      // NOTE: SFCでcss変数を使える.
+      // https://vuetifyjs.com/ja/features/theme/#section-30ab30b930bf30e030d730ed30d130c630a3
+      options: {
+        customProperties: true
+      }
+    }
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
