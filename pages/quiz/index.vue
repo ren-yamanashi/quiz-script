@@ -39,11 +39,11 @@ getQuizzes()
 </script>
     
 <template >
-  <div>
+  <div class="pt-16">
     <DataTable :headers="headers" :items="quizzes" :disable-hover-effect="true">
       <template #actions="{id}">
         <v-btn color="primary" @click="openQuizPage(id)">
-          詳細
+          問題を解く
         </v-btn>
       </template>
     </DataTable>
